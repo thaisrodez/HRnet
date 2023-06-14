@@ -10,13 +10,14 @@ interface SelectProps {
   name: string
   id: string
   options: Option[]
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
-export function Select({ label, name, id, options }: SelectProps): ReactElement {
+export function Select({ label, name, id, options, onChange }: SelectProps): ReactElement {
   return (
     <>
       <label htmlFor={id} className='label'>{label}</label>
-      <select name={name} id={id} className='input'>
+      <select name={name} id={id} className='input' onChange={onChange}>
         {options.map((option) => (
           <option key={option.key} value={option.name}>
             {option.name}
