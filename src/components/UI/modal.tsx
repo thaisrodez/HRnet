@@ -1,4 +1,5 @@
-import React, { type ReactElement } from 'react'
+import React, { useEffect, type ReactElement } from 'react'
+import { useScrollLock } from '../../utils/useScrollLock'
 
 interface ModalProps {
   open: boolean
@@ -7,9 +8,19 @@ interface ModalProps {
 }
 
 export function Modal({ open, setOpenModal, content }: ModalProps): ReactElement | null {
+  const { lockScroll, unlockScroll } = useScrollLock()
+
+  useEffect(() => {
+    if (open) {
+      lockScroll()
+    } else {
+      unlockScroll()
+    }
+  }, [open])
+
   if (open) {
     return (
-      <div className="w-screen h-screen absolute inset-0 z-30 overflow-hidden flex items-center justify-center">
+      <div className="w-screen h-screen fixed inset-0 z-30 overflow-hidden flex items-center justify-center bg-black bg-opacity-40">
         <div className='w-1/2 h-1/3 bg-white border border-gray-200 rounded-md shadow-md relative flex items-center justify-center'>
           <button
             onClick={() => { setOpenModal(false) }}
