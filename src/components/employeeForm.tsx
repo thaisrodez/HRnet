@@ -3,12 +3,13 @@ import { AddressForm } from './addressForm'
 import { Select } from './UI/select'
 import { departments } from '../data/selectData'
 import { Modal } from './UI/modal'
+import { CustomDatePicker } from './UI/datePicker'
 
 export interface FormInputs {
   firstname: string
   lastname: string
-  dateOfBirth: string
-  startDate: string
+  dateOfBirth: Date
+  startDate: Date
   street: string
   city: string
   zipCode: string
@@ -21,8 +22,8 @@ export function EmployeeForm(): ReactElement {
   const [formInputs, setFormsInputs] = useState({
     firstname: '',
     lastname: '',
-    dateOfBirth: '',
-    startDate: '',
+    dateOfBirth: new Date(),
+    startDate: new Date(),
     street: '',
     city: '',
     zipCode: '',
@@ -36,6 +37,10 @@ export function EmployeeForm(): ReactElement {
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     setFormsInputs({ ...formInputs, [e.target.name]: e.target.value })
+  }
+
+  const handleDateChange = (name: string, date: Date | null): void => {
+    setFormsInputs({ ...formInputs, [name]: date })
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -62,12 +67,12 @@ export function EmployeeForm(): ReactElement {
             <div>
 
               <label htmlFor="date-of-birth" className='label'>Date of Birth</label>
-              <input id="date-of-birth" type="date" name='dateOfBirth' value={formInputs.dateOfBirth} onChange={handleChange} className="input" />
+              <CustomDatePicker name='dateOfBirth' startDate={formInputs.dateOfBirth} handleDateChange={handleDateChange} />
             </div>
             <div>
 
               <label htmlFor="start-date" className='label'>Start Date</label>
-              <input id="start-date" type="date" name="startDate" value={formInputs.startDate} onChange={handleChange} className="input" />
+              <CustomDatePicker name='startDate' startDate={formInputs.startDate} handleDateChange={handleDateChange} />
             </div>
 
             <AddressForm handleChange={handleChange} handleSelectChange={handleSelectChange} formInputs={formInputs} />
