@@ -67,12 +67,12 @@ export function EmployeeForm(): ReactElement {
             <div>
 
               <label htmlFor="date-of-birth" className='label'>Date of Birth</label>
-              <CustomDatePicker name='dateOfBirth' startDate={formInputs.dateOfBirth} handleDateChange={handleDateChange} />
+              <CustomDatePicker id="date-of-birth" name='dateOfBirth' startDate={formInputs.dateOfBirth} handleDateChange={handleDateChange} />
             </div>
             <div>
 
               <label htmlFor="start-date" className='label'>Start Date</label>
-              <CustomDatePicker name='startDate' startDate={formInputs.startDate} handleDateChange={handleDateChange} />
+              <CustomDatePicker id="start-date" name='startDate' startDate={formInputs.startDate} handleDateChange={handleDateChange} />
             </div>
 
             <AddressForm handleChange={handleChange} handleSelectChange={handleSelectChange} formInputs={formInputs} />

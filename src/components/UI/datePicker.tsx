@@ -5,12 +5,13 @@ import { months, years } from '../../utils/datesHelper'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 
 interface CustomDatePickerProps {
+  id: string
   name: string
   startDate: Date
   handleDateChange: (name: string, date: Date | null) => void
 }
 
-export function CustomDatePicker({ name, startDate, handleDateChange }: CustomDatePickerProps): ReactElement {
+export function CustomDatePicker({ id, name, startDate, handleDateChange }: CustomDatePickerProps): ReactElement {
   const customHeader = ({
     date,
     changeYear,
@@ -63,6 +64,7 @@ export function CustomDatePicker({ name, startDate, handleDateChange }: CustomDa
 
   return (
     <ReactDatePicker
+      id={id}
       name={name}
       selected={startDate}
       onChange={handleChange}
