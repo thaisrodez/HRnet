@@ -1,23 +1,18 @@
-import React, { useState, type ReactElement } from 'react'
+import React, { useState } from 'react'
 import { AddressForm } from './addressForm'
 import { Select } from './UI/select'
 import { departments } from '../data/selectData'
 import { Modal } from './UI/modal'
 import { CustomDatePicker } from './UI/datePicker'
+import { useAppDispatch } from '../hooks/reduxHooks'
+import { addEmployee } from '../features/employees'
+import { type Employee } from '../data/mockData'
 
-export interface FormInputs {
-  firstname: string
-  lastname: string
-  dateOfBirth: Date
-  startDate: Date
-  street: string
-  city: string
-  zipCode: string
-  state: string
-  department: string
-}
+export type FormInputs = Partial<Employee>
 
-export function EmployeeForm(): ReactElement {
+export function EmployeeForm() {
+  const dispatch = useAppDispatch()
+
   const [openModal, setOpenModal] = useState(false)
   const [formInputs, setFormsInputs] = useState({
     firstname: '',
@@ -45,8 +40,19 @@ export function EmployeeForm(): ReactElement {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
+    dispatch(addEmployee({ ...formInputs, id: (Math.random() * 100).toString() }))
     setOpenModal(true)
-    console.log(formInputs)
+    setFormsInputs({
+      firstname: '',
+      lastname: '',
+      dateOfBirth: new Date(),
+      startDate: new Date(),
+      street: '',
+      city: '',
+      zipCode: '',
+      state: '',
+      department: ''
+    })
   }
 
   return (
