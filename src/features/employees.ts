@@ -16,5 +16,4 @@ export const employeesSlice = createSlice({
 
 export const { addEmployee } = employeesSlice.actions
 
-// Other code such as selectors can use the imported `RootState` type
 export const selectEmployees = (state: RootState) => state.employees

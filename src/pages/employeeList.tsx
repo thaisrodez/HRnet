@@ -1,14 +1,16 @@
-import React, { type ReactElement } from 'react'
+import React, { useMemo } from 'react'
 import { Header } from '../components/header'
-import { EmployeeTable } from '../components/UI/employeeTable'
+import { mockEmployees, tableHeaders } from '../data/mockData'
+import { useAppSelector } from '../hooks/reduxHooks'
+import { Table } from 'paginated-table-pkg'
 
-export function EmployeeList(): ReactElement {
+export function EmployeeList() {
+  const newEmployees = useAppSelector((state) => state.employees)
+  const getEmployees = useMemo(() => newEmployees.concat(mockEmployees), [newEmployees])
   return (
     <>
       <Header title='Current Employees' linkLabel='Home' linkPath='/' />
-      <div className='px-8'>
-        <EmployeeTable />
-      </div>
+      <Table data={getEmployees} tableHeaders={tableHeaders} />
     </>
   )
 }
